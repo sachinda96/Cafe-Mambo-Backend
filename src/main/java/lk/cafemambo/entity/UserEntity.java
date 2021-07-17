@@ -8,6 +8,7 @@ import java.util.Date;
 public class UserEntity {
 
     @Id
+    @Column(length = 50)
     private String id;
 
     private String name;

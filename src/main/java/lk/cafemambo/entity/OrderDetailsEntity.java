@@ -25,7 +25,7 @@ public class OrderDetailsEntity {
     private Date updateDate;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "oder_id")
     private OrderEntity orderEntity;
 
     @ManyToOne
