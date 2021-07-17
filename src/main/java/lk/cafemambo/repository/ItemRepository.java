@@ -1,6 +1,7 @@
 package lk.cafemambo.repository;
 
+import lk.cafemambo.entity.ItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ItemEntity extends JpaRepository<ItemEntity,String> {
+public interface ItemRepository extends JpaRepository<ItemEntity,String> {
 }
