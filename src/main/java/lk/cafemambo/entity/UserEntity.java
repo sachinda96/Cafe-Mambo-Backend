@@ -15,6 +15,8 @@ public class UserEntity {
 
     private String email;
 
+    private String role;
+
     @Column(length = 10)
     private String status;
 
@@ -56,6 +58,14 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public LoginEntity getLoginEntity() {
