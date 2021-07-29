@@ -1,28 +1,20 @@
 package lk.cafemambo.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "ITEM")
-public class ItemEntity {
+@Table(name = "CATEGORY")
+public class CategoryEntity {
 
     @Id
     @Column(length = 50)
     private String id;
 
-    private String name;
-
-    @Column(columnDefinition = "LONGTEXT")
-    private String description;
-
-    @ElementCollection
-    private List<String> ingredients;
-
-    private Double price;
-
-    private String path;
+    private String  name;
 
     @Column(length = 10)
     private String status;
@@ -36,10 +28,6 @@ public class ItemEntity {
     private String updateBy;
 
     private Date updateDate;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoryEntity categoryEntity;
 
     public String getId() {
         return id;
@@ -55,14 +43,6 @@ public class ItemEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public String getStatus() {
@@ -103,37 +83,5 @@ public class ItemEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public CategoryEntity getCategoryEntity() {
-        return categoryEntity;
-    }
-
-    public void setCategoryEntity(CategoryEntity categoryEntity) {
-        this.categoryEntity = categoryEntity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<String> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<String> ingredients) {
-        this.ingredients = ingredients;
     }
 }
