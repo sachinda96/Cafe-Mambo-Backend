@@ -28,6 +28,9 @@ public class JwtTokenProvider {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private HttpServletRequest request;
+
 
     public String createToken(String username) {
 
@@ -82,5 +85,9 @@ public class JwtTokenProvider {
         return this.userDetailsService.loadUserByUsername(getUsernameFromToken(token));
     }
 
+
+    public String getUserEmailByRequestToken() {
+        return getUsernameFromToken(resolveToken(request));
+    }
 
 }

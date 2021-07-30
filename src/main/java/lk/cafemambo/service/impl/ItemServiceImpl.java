@@ -32,9 +32,6 @@ public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository;
 
     @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
 
@@ -218,7 +215,7 @@ public class ItemServiceImpl implements ItemService {
         ItemEntity itemEntity = new ItemEntity();
         itemEntity.setCategoryEntity(categoryEntity);
         itemEntity.setPath(itemDto.getImagePath());
-        itemEntity.setCreateBy(getUserEmail());
+        itemEntity.setCreateBy(jwtTokenProvider.getUserEmailByRequestToken());
         itemEntity.setCreateDate(new Date());
         itemEntity.setId(id);
         itemEntity.setStatus(AppConstance.ACTIVE);
@@ -246,7 +243,5 @@ public class ItemServiceImpl implements ItemService {
         return 0;
     }
 
-    private String getUserEmail() {
-        return jwtTokenProvider.getUsernameFromToken(jwtTokenProvider.resolveToken(request));
-    }
+
 }

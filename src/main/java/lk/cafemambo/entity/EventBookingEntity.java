@@ -1,24 +1,17 @@
 package lk.cafemambo.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PAYMENT")
-public class PaymentEntity {
+@Table(name = "EVENTBOOKING")
+public class EventBookingEntity {
 
     @Id
     @Column(length = 50)
     private String id;
 
-    private Double amount;
-
-    private String method;
-
-    private String paymentStatus;
+    private Date bookDate;
 
     @Column(length = 10)
     private String status;
@@ -33,6 +26,18 @@ public class PaymentEntity {
 
     private Date updateDate;
 
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
+    private PaymentEntity paymentEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private DeliveryDetailsEntity deliveryDetailsEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
+
     public String getId() {
         return id;
     }
@@ -41,28 +46,12 @@ public class PaymentEntity {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Date getBookDate() {
+        return bookDate;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setBookDate(Date bookDate) {
+        this.bookDate = bookDate;
     }
 
     public String getStatus() {
@@ -103,5 +92,29 @@ public class PaymentEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public PaymentEntity getPaymentEntity() {
+        return paymentEntity;
+    }
+
+    public void setPaymentEntity(PaymentEntity paymentEntity) {
+        this.paymentEntity = paymentEntity;
+    }
+
+    public DeliveryDetailsEntity getDeliveryDetailsEntity() {
+        return deliveryDetailsEntity;
+    }
+
+    public void setDeliveryDetailsEntity(DeliveryDetailsEntity deliveryDetailsEntity) {
+        this.deliveryDetailsEntity = deliveryDetailsEntity;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

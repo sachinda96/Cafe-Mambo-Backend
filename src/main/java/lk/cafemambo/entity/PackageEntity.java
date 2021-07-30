@@ -7,18 +7,19 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "PAYMENT")
-public class PaymentEntity {
+@Table(name = "PACKAGE")
+public class PackageEntity {
 
     @Id
     @Column(length = 50)
     private String id;
 
-    private Double amount;
+    private String name;
 
-    private String method;
+    @Column(columnDefinition = "LONGTEXT")
+    private String description;
 
-    private String paymentStatus;
+    private Double price;
 
     @Column(length = 10)
     private String status;
@@ -41,28 +42,28 @@ public class PaymentEntity {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public String getName() {
+        return name;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMethod() {
-        return method;
+    public String getDescription() {
+        return description;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPaymentStatus() {
-        return paymentStatus;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getStatus() {

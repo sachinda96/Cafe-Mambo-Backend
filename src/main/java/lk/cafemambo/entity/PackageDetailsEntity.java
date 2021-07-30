@@ -1,24 +1,15 @@
 package lk.cafemambo.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PAYMENT")
-public class PaymentEntity {
+@Table(name = "PACKAGEDETAILS")
+public class PackageDetailsEntity {
 
     @Id
     @Column(length = 50)
     private String id;
-
-    private Double amount;
-
-    private String method;
-
-    private String paymentStatus;
 
     @Column(length = 10)
     private String status;
@@ -33,36 +24,20 @@ public class PaymentEntity {
 
     private Date updateDate;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private ItemEntity itemEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "package_id")
+    private PackageEntity packageEntity;
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
     }
 
     public String getStatus() {
@@ -103,5 +78,21 @@ public class PaymentEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public ItemEntity getItemEntity() {
+        return itemEntity;
+    }
+
+    public void setItemEntity(ItemEntity itemEntity) {
+        this.itemEntity = itemEntity;
+    }
+
+    public PackageEntity getPackageEntity() {
+        return packageEntity;
+    }
+
+    public void setPackageEntity(PackageEntity packageEntity) {
+        this.packageEntity = packageEntity;
     }
 }
