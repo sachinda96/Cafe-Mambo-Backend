@@ -45,7 +45,7 @@ public class ItemController {
         return itemService.getAllItemByCategory(categoryId);
     }
 
-    @GetMapping(value = "/getAllItemByIndexAndCategory/{index}/{size}/{categoryId}")
+    @GetMapping(value = "/getAllItemsByIndexAndCategory/{index}/{size}/{categoryId}")
     public ResponseEntity<?> getAllItemByIndexAndCategory(@PathVariable Integer index,@PathVariable Integer size,@PathVariable String categoryId){
         return itemService.getAllItemByIndexAndCategory(index,size,categoryId);
     }

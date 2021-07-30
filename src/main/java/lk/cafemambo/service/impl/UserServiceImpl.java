@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
             userRepository.save(userEntity);
 
-            return new ResponseEntity<>("Success",HttpStatus.OK);
+            return new ResponseEntity<>("200",HttpStatus.OK);
 
         } catch (Exception e){
             e.printStackTrace();
