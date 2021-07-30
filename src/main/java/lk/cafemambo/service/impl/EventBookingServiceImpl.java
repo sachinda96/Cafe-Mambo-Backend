@@ -13,7 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -144,12 +146,41 @@ public class EventBookingServiceImpl implements EventBookingService {
 
     @Override
     public ResponseEntity<?> getBooking(String id) {
-        return null;
+
+        try {
+
+            EventBookingEntity eventBookingEntity = eventBookingRepository.getById(id);
+
+            if(eventBookingEntity == null){
+                return new ResponseEntity<>("Invalid Event Booking", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            return new ResponseEntity<>(setEventBookingDto(eventBookingEntity),HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ResponseEntity<?> getAllBooking() {
-        return null;
+        try {
+
+            List<EventBookingEntity> eventBookingEntityList = eventBookingRepository.findAllByStatus(AppConstance.ACTIVE);
+
+            List<EventBookingDto> eventBookingDtoList = new ArrayList<>();
+
+            for (EventBookingEntity eventBookingEntity : eventBookingEntityList) {
+                eventBookingDtoList.add(setEventBookingDto(eventBookingEntity));
+            }
+
+            return new ResponseEntity<>(eventBookingDtoList,HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     private EventBookingEntity setEventBookingEntity(EventBookingDto eventBookingDto, PaymentEntity paymentEntity, UserEntity userEntity, DeliveryDetailsEntity deliveryDetailsEntity){
@@ -207,6 +238,42 @@ public class EventBookingServiceImpl implements EventBookingService {
         return deliveryDetailsEntity;
     }
 
+    public EventBookingDto setEventBookingDto(EventBookingEntity eventBookingEntity){
+        EventBookingDto eventBookingDto = new EventBookingDto();
+        eventBookingDto.setBookDate(eventBookingEntity.getBookDate());
+        eventBookingDto.setId(eventBookingEntity.getId());
+        eventBookingDto.setDelivery(setDeliveryDto(eventBookingEntity.getDeliveryDetailsEntity()));
+        eventBookingDto.setUserId(eventBookingEntity.getUserEntity().getId());
+        eventBookingDto.setPayment(setPaymentDto(eventBookingEntity.getPaymentEntity()));
+        EventBookingDetailsEntity eventBookingDetailsEntity = eventBookingDetailsRepository.findByEventBookingEntityAndStatus(eventBookingEntity,AppConstance.ACTIVE);
+        if(eventBookingDetailsEntity != null){
+            eventBookingDto.setPackageId(eventBookingDetailsEntity.getPackageEntity().getId());
+        }
+        return eventBookingDto;
+    }
 
+    private PaymentDto setPaymentDto(PaymentEntity paymentEntity) {
+        PaymentDto paymentDto = new PaymentDto();
+        paymentDto.setPaymentStatus(paymentEntity.getPaymentStatus());
+        paymentDto.setId(paymentEntity.getId());
+        paymentDto.setAmount(paymentEntity.getAmount());
+        paymentDto.setMethod(paymentEntity.getMethod());
+        return paymentDto;
+    }
+
+    private DeliveryDto setDeliveryDto(DeliveryDetailsEntity deliveryDetailsEntity) {
+        DeliveryDto deliveryDto = new DeliveryDto();
+        deliveryDto.setDeliveryDate(deliveryDetailsEntity.getDeliveryDate());
+        deliveryDto.setDeliveryNote(deliveryDetailsEntity.getDeliveryNote());
+        deliveryDto.setId(deliveryDetailsEntity.getId());
+        deliveryDto.setName(deliveryDetailsEntity.getName());
+        deliveryDto.setCity(deliveryDetailsEntity.getCity());
+        deliveryDto.setAddress(deliveryDetailsEntity.getAddress());
+        deliveryDto.setCity(deliveryDetailsEntity.getCity());
+        deliveryDto.setDistrict(deliveryDetailsEntity.getDistrict());
+        deliveryDto.setMobileNo(deliveryDetailsEntity.getMobileNo());
+        deliveryDto.setPostalCode(deliveryDetailsEntity.getPostalCode());
+        return deliveryDto;
+    }
 
 }
