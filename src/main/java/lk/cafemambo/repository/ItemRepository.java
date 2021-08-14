@@ -17,4 +17,6 @@ public interface ItemRepository extends JpaRepository<ItemEntity,String> {
     List<ItemEntity> findAllByCategoryEntityAndStatus(CategoryEntity categoryEntity,String Status, Pageable pageable)throws Exception;
 
     List<ItemEntity> findAllByStatus(String status,Pageable pageable)throws Exception;
+
+    long countByCategoryEntityAndStatus(CategoryEntity categoryEntity, String active);
 }

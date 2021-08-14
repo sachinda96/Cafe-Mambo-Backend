@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "cafe-mambo",
+  "private_key_id": "63753d580d3cb5bc6b935e242cd8d0a886bd28bb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXQdLmgsz5pe2N\ncLAXaKBJDhnXNlaXjwh4FxEwMUFVB1iFs8t11Gl270TurApTgz65tx6QyFs/ZiV2\nujJV+kVA0hJXXvVU+iMgOkBkazhn8ubsZDP1Ywx5/sQqXLlcBPCdJixIcFuAysdz\n4c9nNQBJnU98WQeAB1jgXMajsGoqmpEmhaEoCef0eQo67NBnJw4q6tFqRsfdFmJq\naYCQm0OX/Lt+8POp83ZX2yDptTn8bkmlR///uHUbDCOWA3YZy5z0SCYWvznAAL89\n9hZXcElZTNgm0joMTL2APhogzSZpMJ7MKVIP5sULwV/Ip3tEdnNwJ+R3Wds88Vbd\nkwutp+ZrAgMBAAECggEAEckfiupN02bRXPlto1GCxOaEXhLgTr+DvKBzTB8VvdfQ\niaOUcRTu7ePRN0NByyqx+RhXTzEu0Os4tzmlRRNbu4Jf/5YaAT51vojxnxp426Xn\nTKru3BymAEJ7pOBqdF74HpPz3rxh4x9eIYYL5AQuFOcJlUWp5/szbb5cr1O5QfHC\nlMzGPTTZ1fBoZCC1keIpnZ8IeVtL4ZyzRL7cz+AHBpxQAFJWIBVIlqucSHJ7psBk\nobPCuxftqY8w2XOrdN92oT6zo6hqEwFlrBs53Hag6UxQnADRO72sqdvkbxg0hEIU\nqeLpkLgrj8ydf0uyeIl3roVcvTiZbhhvuxC/OLUCMQKBgQD/QHM2N02i/tibZg3M\nbPd+2x/bcD760gq7xRrvkxT/WyZu1d9niribhzeDY5HCx7j3U9j8pfVcZw1v0MVH\nAZKeNbL2Rji19IQOBZZAtr/K2eUAg99Bt+0hdhLoYeFzB1xrZBtuz16pvSItAFQV\npS8gAGl0NUnMmz+kJ+0BmueqswKBgQDX41xC2eWWMJGGfdTFWxEvWflJcqSCilUf\npsQptFlDr/xT6TTLT26jOHKv0S0/RGbfVpF09kMVm2sWQ3IM11D80ecrQlECzk0l\n05Yn/1AgtJSd/e913lRWtS/0kjbvcrm62p/OwG0NLEqDTEOeJz9fiitNk71jRS5f\nkxEzXv8RaQKBgByJeRgDoNNrSI4/H6XOPPFa0Dn5V6E1IGwTwkosmHlgGHDlyl9K\nHA+PU36GAELVj3FfV3APodndz5vDrHqey2SSvlpYSXjWSHlE2KKNi+3C5J5lH+26\nAXHvQHfokYsJtKRxAbwmxP+XHJ4JXl05JYafZSrP1ltgtAHHUPEP/3yPAoGBAJcm\n04jmwIz4MluErD0FdrG9gAFBqBbRvamsfDlq0PjINZWWeOVEFwVmVz3r6Y8bWB9U\noADRDsUJDOAIlsiQ1F4+pGiwRMH/KRqr2rzkT/imFkvL6CWRZWFT+GB3IslhfNJr\nkWoTZgbMFNt6wPjxJ7i/p3PoVbg0TrSR5oAeKd3JAoGAYw6L8h7VwgQbixIAGhu+\n96ay174KdRQp08xCT1+mkuLUwHZUkvj9IXeHNaM+sBEwZQoYg84VUKZMQhFBZIi8\noBurT5qongeiCPh9QAojR5ByfDp1zLYgfMSnp0WHVsCYWTfthTQm+Sfiwylna5ot\nsd9nSX7ln871KaG0fMo57QY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cafe-136@cafe-mambo.iam.gserviceaccount.com",
+  "client_id": "110792732018225899703",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cafe-136%40cafe-mambo.iam.gserviceaccount.com"
+}

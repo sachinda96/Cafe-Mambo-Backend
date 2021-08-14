@@ -6,9 +6,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface ItemService {
 
-    public ResponseEntity<?> saveItem(MultipartFile imageFile, ItemDto itemDto);
+    public ResponseEntity<?> saveItem(MultipartFile imageFile, String item);
 
-    public ResponseEntity<?> updateItem(MultipartFile imageFile, ItemDto itemDto);
+    public ResponseEntity<?> updateItem(MultipartFile imageFile, String item);
 
     public ResponseEntity<?> getAllItem();
 
@@ -21,4 +21,6 @@ public interface ItemService {
     public ResponseEntity<?> getAllItemByIndexAndCategory(Integer index,Integer size,String categoryId);
 
     public ResponseEntity<?> getAllItemByIndex(Integer index,Integer size);
+
+    public ResponseEntity<?> getItemCountByCategory(String categoryId);
 }

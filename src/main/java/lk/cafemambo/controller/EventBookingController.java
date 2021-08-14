@@ -35,7 +35,7 @@ public class EventBookingController {
         return eventBookingService.getBooking(id);
     }
 
-    @GetMapping(value = "/getAll/{id}")
+    @GetMapping(value = "/getAll")
     public ResponseEntity<?> getAllBooking(){
         return eventBookingService.getAllBooking();
     }

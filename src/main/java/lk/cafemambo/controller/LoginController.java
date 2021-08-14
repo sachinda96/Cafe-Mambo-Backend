@@ -17,7 +17,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping()
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto){
         return loginService.login(loginDto);
     }

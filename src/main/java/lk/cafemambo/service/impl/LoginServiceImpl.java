@@ -33,6 +33,7 @@ public class LoginServiceImpl implements LoginService {
             if(loginEntity != null){
 
                 if(passwordEncoder.matches(loginDto.getPassword(),loginEntity.getPassword())){
+                    System.out.println(jwtTokenProvider.createToken(loginEntity.getEmail()));
                     return new ResponseEntity<>(jwtTokenProvider.createToken(loginEntity.getEmail()),HttpStatus.OK);
                 }
 
