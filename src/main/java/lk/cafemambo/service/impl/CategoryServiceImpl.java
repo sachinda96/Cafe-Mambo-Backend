@@ -93,7 +93,7 @@ public class CategoryServiceImpl implements CategoryService {
                 return new ResponseEntity<>("Invalid Category",HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            categoryRepository.save(updateCategoryStatus(AppConstance.ACTIVE,categoryEntity));
+            categoryRepository.save(updateCategoryStatus(AppConstance.INACTIVE,categoryEntity));
 
             return new ResponseEntity<>("200",HttpStatus.OK);
 
