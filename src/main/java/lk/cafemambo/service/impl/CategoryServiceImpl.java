@@ -44,9 +44,9 @@ public class CategoryServiceImpl implements CategoryService {
     public ResponseEntity<?> update(CategoryDto categoryDto) {
         try {
 
-            CategoryEntity categoryEntity = categoryRepository.getById(categoryDto.getId());
+            CategoryEntity categoryEntity = categoryRepository.getByIdAndStatus(categoryDto.getId(),AppConstance.ACTIVE);
 
-            if (categoryEntity == null){
+            if(categoryEntity == null){
                 return new ResponseEntity<>("Invalid Category",HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         try {
 
-            CategoryEntity categoryEntity = categoryRepository.getById(id);
+            CategoryEntity categoryEntity = categoryRepository.getByIdAndStatus(id,AppConstance.ACTIVE);
 
             if (categoryEntity == null){
                 return new ResponseEntity<>("Invalid Category",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -87,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         try {
 
-            CategoryEntity categoryEntity = categoryRepository.getById(id);
+            CategoryEntity categoryEntity = categoryRepository.getByIdAndStatus(id,AppConstance.ACTIVE);
 
             if (categoryEntity == null){
                 return new ResponseEntity<>("Invalid Category",HttpStatus.INTERNAL_SERVER_ERROR);
