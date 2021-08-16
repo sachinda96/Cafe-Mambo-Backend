@@ -12,6 +12,7 @@ public class ItemDto {
     private String description;
     private List<String> ingredients;
     private Integer rateCount;
+    private Integer qty;
 
     public String getId() {
         return id;
@@ -75,5 +76,13 @@ public class ItemDto {
 
     public void setRateCount(Integer rateCount) {
         this.rateCount = rateCount;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 }

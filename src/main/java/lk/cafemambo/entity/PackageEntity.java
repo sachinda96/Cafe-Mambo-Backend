@@ -21,6 +21,8 @@ public class PackageEntity {
 
     private Double price;
 
+    private String imagePath;
+
     @Column(length = 10)
     private String status;
 
@@ -104,5 +106,13 @@ public class PackageEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

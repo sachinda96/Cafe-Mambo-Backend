@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -46,7 +47,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
         try {
 
-            UserEntity userEntity = userRepository.findByEmail(jwtTokenProvider.getUserEmailByRequestToken());
+            UserEntity userEntity = userRepository.getById(placeOrderDto.getUserId());
 
             if (userEntity == null){
                 return new ResponseEntity<>("Invalid User", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -60,7 +61,8 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
             orderEntity.setUserEntity(userEntity);
             orderEntity.setStatus(AppConstance.ACTIVE);
             orderEntity.setPaymentEntity(setPaymentEntity(placeOrderDto.getPaymentDto()));
-            orderRepository.save(orderEntity);
+
+            Double total = 0.0;
 
             for (ItemDto itemDto : placeOrderDto.getItemDtoList()) {
                 ItemEntity itemEntity = itemRepository.getById(itemDto.getId());
@@ -70,10 +72,17 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
                 orderDetailsEntity.setStatus(AppConstance.ACTIVE);
                 orderDetailsEntity.setCreateDate(new Date());
                 orderDetailsEntity.setItemEntity(itemEntity);
+                orderDetailsEntity.setQty(itemDto.getQty());
+
+                total = new BigDecimal(total).add(new BigDecimal(itemDto.getPrice())).setScale(2).doubleValue();
+
+
                 orderDetailsRepository.save(orderDetailsEntity);
 
             }
 
+            orderEntity.setTotal(total);
+            orderRepository.save(orderEntity);
 
             return new ResponseEntity<>("200",HttpStatus.OK);
 

@@ -1,10 +1,14 @@
 package lk.cafemambo.service.impl;
 
 import lk.cafemambo.dto.LoginDto;
+import lk.cafemambo.dto.TokenDto;
 import lk.cafemambo.entity.LoginEntity;
+import lk.cafemambo.entity.UserEntity;
 import lk.cafemambo.repository.LoginRepository;
+import lk.cafemambo.repository.UserRepository;
 import lk.cafemambo.security.JwtTokenProvider;
 import lk.cafemambo.service.LoginService;
+import lk.cafemambo.util.AppConstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private LoginRepository loginRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -31,10 +38,15 @@ public class LoginServiceImpl implements LoginService {
             LoginEntity loginEntity = loginRepository.findByEmail(loginDto.getEmail());
 
             if(loginEntity != null){
+                UserEntity userEntity = userRepository.findByLoginEntityAndStatus(loginEntity, AppConstance.ACTIVE);
 
                 if(passwordEncoder.matches(loginDto.getPassword(),loginEntity.getPassword())){
-                    System.out.println(jwtTokenProvider.createToken(loginEntity.getEmail()));
-                    return new ResponseEntity<>(jwtTokenProvider.createToken(loginEntity.getEmail()),HttpStatus.OK);
+
+                    TokenDto tokenDto = new TokenDto();
+                    tokenDto.setToken(jwtTokenProvider.createToken(loginEntity.getEmail()));
+                    tokenDto.setUserId(userEntity.getId());
+
+                    return new ResponseEntity<>(tokenDto,HttpStatus.OK);
                 }
 
             }

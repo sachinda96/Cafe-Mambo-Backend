@@ -24,6 +24,9 @@ public class OrderDetailsEntity {
 
     private Date updateDate;
 
+    private Integer qty;
+
+
     @ManyToOne
     @JoinColumn(name = "oder_id")
     private OrderEntity orderEntity;
@@ -94,5 +97,13 @@ public class OrderDetailsEntity {
 
     public void setItemEntity(ItemEntity itemEntity) {
         this.itemEntity = itemEntity;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 }

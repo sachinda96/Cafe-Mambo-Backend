@@ -10,6 +10,7 @@ public class PlaceOrderDto {
     private PaymentDto paymentDto;
     private DeliveryDto deliveryDto;
     private List<ItemDto> itemDtoList;
+    private String userId;
 
     public String getId() {
         return id;
@@ -49,5 +50,13 @@ public class PlaceOrderDto {
 
     public void setItemDtoList(List<ItemDto> itemDtoList) {
         this.itemDtoList = itemDtoList;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
