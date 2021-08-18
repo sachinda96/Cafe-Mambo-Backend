@@ -59,13 +59,13 @@ public class EventBookingServiceImpl implements EventBookingService {
                 return new ResponseEntity<>("Invalid Package", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            DeliveryDetailsEntity deliveryDetailsEntity = deliveryDetailsRepository.save(setDeliveryDetailsEntity(eventBookingDto.getDelivery()));
+            //DeliveryDetailsEntity deliveryDetailsEntity = deliveryDetailsRepository.save(setDeliveryDetailsEntity(eventBookingDto.getDelivery()));
 
-            PaymentEntity paymentEntity = paymentRepository.save(setPaymentEntity(eventBookingDto.getPayment()));
+            //PaymentEntity paymentEntity = paymentRepository.save(setPaymentEntity(eventBookingDto.getPayment()));
 
-            EventBookingEntity eventBookingEntity = eventBookingRepository.save(setEventBookingEntity(eventBookingDto,paymentEntity,userEntity,deliveryDetailsEntity));
+           // EventBookingEntity eventBookingEntity = eventBookingRepository.save(setEventBookingEntity(eventBookingDto,paymentEntity,userEntity,deliveryDetailsEntity));
 
-            eventBookingDetailsRepository.save(setEventBookingDetailsEntity(eventBookingEntity,packageEntity));
+         //   eventBookingDetailsRepository.save(setEventBookingDetailsEntity(eventBookingEntity,packageEntity));
 
             return new ResponseEntity<>("200", HttpStatus.OK);
         }catch (Exception e){
@@ -242,9 +242,9 @@ public class EventBookingServiceImpl implements EventBookingService {
         EventBookingDto eventBookingDto = new EventBookingDto();
         eventBookingDto.setBookDate(eventBookingEntity.getBookDate());
         eventBookingDto.setId(eventBookingEntity.getId());
-        eventBookingDto.setDelivery(setDeliveryDto(eventBookingEntity.getDeliveryDetailsEntity()));
+       //// eventBookingDto.setDelivery(setDeliveryDto(eventBookingEntity.getDeliveryDetailsEntity()));
         eventBookingDto.setUserId(eventBookingEntity.getUserEntity().getId());
-        eventBookingDto.setPayment(setPaymentDto(eventBookingEntity.getPaymentEntity()));
+        //eventBookingDto.setPayment(setPaymentDto(eventBookingEntity.getPaymentEntity()));
         EventBookingDetailsEntity eventBookingDetailsEntity = eventBookingDetailsRepository.findByEventBookingEntityAndStatus(eventBookingEntity,AppConstance.ACTIVE);
         if(eventBookingDetailsEntity != null){
             eventBookingDto.setPackageId(eventBookingDetailsEntity.getPackageEntity().getId());

@@ -18,6 +18,9 @@ public class OrderEntity {
     @Column(length = 10)
     private String status;
 
+    @Column(length = 10)
+    private String orderStatus;
+
     @Column(length = 50)
     private String createBy;
 
@@ -35,6 +38,10 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private DeliveryDetailsEntity deliveryDetailsEntity;
 
     public String getId() {
         return id;
@@ -66,6 +73,14 @@ public class OrderEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public String getCreateBy() {
@@ -114,5 +129,13 @@ public class OrderEntity {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public DeliveryDetailsEntity getDeliveryDetailsEntity() {
+        return deliveryDetailsEntity;
+    }
+
+    public void setDeliveryDetailsEntity(DeliveryDetailsEntity deliveryDetailsEntity) {
+        this.deliveryDetailsEntity = deliveryDetailsEntity;
     }
 }

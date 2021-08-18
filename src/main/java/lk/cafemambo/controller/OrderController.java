@@ -19,4 +19,23 @@ public class OrderController {
         return placeOrderService.placeOrder(placeOrderDto);
     }
 
+    @GetMapping
+    public ResponseEntity<?> getPendingOrders(){
+        return placeOrderService.getPendingOrders();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getOrderDetails(@PathVariable String id){
+        return placeOrderService.getOrderDetails(id);
+    }
+
+    @GetMapping("/dispatch/{id}")
+    public ResponseEntity<?> placeOrder(@PathVariable String id){
+        return placeOrderService.dispatchOrder(id);
+    }
+
+    @GetMapping("/cancel/{id}")
+    public ResponseEntity<?> canceledOrder(@PathVariable String id){
+        return placeOrderService.canceledOrder(id);
+    }
 }

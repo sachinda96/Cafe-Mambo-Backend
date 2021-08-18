@@ -9,6 +9,7 @@ public class ItemDto {
     private Double price;
     private String imagePath;
     private String categoryId;
+    private String categoryName;
     private String description;
     private List<String> ingredients;
     private Integer rateCount;
@@ -84,5 +85,13 @@ public class ItemDto {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

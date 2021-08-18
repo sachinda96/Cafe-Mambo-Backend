@@ -6,10 +6,11 @@ public class EventBookingDto {
 
     private String id;
     private String userId;
+    private String name;
+    private String email;
+    private String contactNumber;
     private Date bookDate;
     private String packageId;
-    private DeliveryDto delivery;
-    private PaymentDto payment;
 
     public String getId() {
         return id;
@@ -43,19 +44,4 @@ public class EventBookingDto {
         this.packageId = packageId;
     }
 
-    public DeliveryDto getDelivery() {
-        return delivery;
-    }
-
-    public void setDelivery(DeliveryDto delivery) {
-        this.delivery = delivery;
-    }
-
-    public PaymentDto getPayment() {
-        return payment;
-    }
-
-    public void setPayment(PaymentDto payment) {
-        this.payment = payment;
-    }
 }
