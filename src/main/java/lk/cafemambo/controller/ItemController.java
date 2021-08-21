@@ -33,7 +33,7 @@ public class ItemController {
         return itemService.saveItem(file,data);
     }
 
-    @PostMapping(value = "/update")
+    @PostMapping(value = "/update",produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateItem(@RequestParam(name = "file",required = false) MultipartFile imageFile,@RequestParam(name = "data") String data){
         return itemService.updateItem(imageFile,data);
     }

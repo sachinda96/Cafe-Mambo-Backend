@@ -60,7 +60,7 @@ public class ItemServiceImpl implements ItemService {
             }
 
             String id= UUID.randomUUID().toString();
-            if(!imageFile.isEmpty()){
+            if(imageFile != null){
                 if(fileService.uploadFile(id,imageFile)){
                     itemDto.setImagePath(generateImagePath(id,imageFile.getOriginalFilename()));
                 }
@@ -79,6 +79,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ResponseEntity<?> updateItem(MultipartFile imageFile, String item) {
+
         try {
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -279,6 +280,7 @@ public class ItemServiceImpl implements ItemService {
         itemDto.setCategoryId(itemEntity.getCategoryEntity().getId());
         itemDto.setImagePath(itemEntity.getPath());
         itemDto.setDescription(itemEntity.getDescription());
+        itemDto.setCategoryName(itemEntity.getCategoryEntity().getName());
         itemDto.setIngredients(itemEntity.getIngredients());
         itemDto.setId(itemEntity.getId());
         itemDto.setName(itemEntity.getName());

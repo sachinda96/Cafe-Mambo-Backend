@@ -5,10 +5,12 @@ import java.util.Date;
 public class EventBookingDto {
 
     private String id;
-    private String userId;
     private String name;
     private String email;
     private String contactNumber;
+    private String message;
+    private String location;
+    private String userId;
     private Date bookDate;
     private String packageId;
 
@@ -18,14 +20,6 @@ public class EventBookingDto {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public Date getBookDate() {
@@ -44,4 +38,51 @@ public class EventBookingDto {
         this.packageId = packageId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 }

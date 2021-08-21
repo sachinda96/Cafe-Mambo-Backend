@@ -3,6 +3,7 @@ package lk.cafemambo.controller;
 import lk.cafemambo.dto.PlaceOrderDto;
 import lk.cafemambo.service.PlaceOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class OrderController {
         return placeOrderService.getOrderDetails(id);
     }
 
-    @GetMapping("/dispatch/{id}")
-    public ResponseEntity<?> placeOrder(@PathVariable String id){
+    @GetMapping(value = "/dispatch/{id}",produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> dispatchOrder(@PathVariable String id){
         return placeOrderService.dispatchOrder(id);
     }
 
-    @GetMapping("/cancel/{id}")
+    @GetMapping(value = "/cancel/{id}",produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> canceledOrder(@PathVariable String id){
         return placeOrderService.canceledOrder(id);
     }

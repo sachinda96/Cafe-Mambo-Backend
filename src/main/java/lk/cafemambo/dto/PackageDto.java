@@ -1,5 +1,7 @@
 package lk.cafemambo.dto;
 
+import java.util.List;
+
 public class PackageDto {
 
     private String id;
@@ -7,6 +9,7 @@ public class PackageDto {
     private String description;
     private Double price;
     private String imagePath;
+    private List<ItemDto> itemDtoList;
 
     public String getId() {
         return id;
@@ -46,5 +49,13 @@ public class PackageDto {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public List<ItemDto> getItemDtoList() {
+        return itemDtoList;
+    }
+
+    public void setItemDtoList(List<ItemDto> itemDtoList) {
+        this.itemDtoList = itemDtoList;
     }
 }

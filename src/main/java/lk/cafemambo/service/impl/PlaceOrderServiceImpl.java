@@ -136,6 +136,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
             OrderEntity orderEntity = orderRepository.getById(id);
             OrderDto orderDto = new OrderDto();
+            orderDto.setId(orderEntity.getId());
             orderDto.setCustomerDto(setCustomerDto(orderEntity.getUserEntity()));
             orderDto.setOrderDate(orderEntity.getOrderDate());
             orderDto.setDeliveryDto(setDeliveryDto(orderEntity.getDeliveryDetailsEntity()));
