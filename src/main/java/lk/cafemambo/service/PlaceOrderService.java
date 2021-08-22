@@ -15,4 +15,6 @@ public interface PlaceOrderService {
     public ResponseEntity<?> dispatchOrder(String id);
 
     public ResponseEntity<?> canceledOrder(String id);
+
+    public ResponseEntity<?> allOrderByCustomer(String customerId);
 }

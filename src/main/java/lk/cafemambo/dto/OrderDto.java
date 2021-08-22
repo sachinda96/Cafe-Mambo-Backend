@@ -6,12 +6,14 @@ import java.util.List;
 public class OrderDto {
 
     private String id;
+    private String orderStatus;
     private Double total;
     private CustomerDto customerDto;
     private Date orderDate;
     private List<ItemDto> itemDtoList;
     private DeliveryDto deliveryDto;
     private PaymentDto paymentDto;
+
 
     public String getId() {
         return id;
@@ -67,6 +69,14 @@ public class OrderDto {
 
     public void setPaymentDto(PaymentDto paymentDto) {
         this.paymentDto = paymentDto;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
     }
 }
 

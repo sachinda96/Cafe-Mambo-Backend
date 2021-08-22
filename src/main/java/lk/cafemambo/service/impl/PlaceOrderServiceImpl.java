@@ -191,6 +191,36 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> allOrderByCustomer(String customerId) {
+
+
+        try {
+
+            UserEntity userEntity =userRepository.getById(customerId);
+
+            List<OrderEntity> orderEntities = orderRepository.findAllByUserEntityAndStatus(userEntity,AppConstance.ACTIVE);
+
+            List<OrderDto> orderDtoList = new ArrayList<>();
+
+            for (OrderEntity orderEntity : orderEntities) {
+                OrderDto orderDto = new OrderDto();
+                orderDto.setId(orderEntity.getId());
+                orderDto.setCustomerDto(setCustomerDto(orderEntity.getUserEntity()));
+                orderDto.setOrderDate(orderEntity.getOrderDate());
+                orderDto.setDeliveryDto(setDeliveryDto(orderEntity.getDeliveryDetailsEntity()));
+                orderDto.setPaymentDto(setPaymentDto(orderEntity.getPaymentEntity()));
+                orderDto.setItemDtoList(setItemList(orderEntity));
+                orderDto.setOrderStatus(orderEntity.getOrderStatus());
+                orderDtoList.add(orderDto);
+            }
+
+            return new ResponseEntity<>(orderEntities,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
     private List<ItemDto> setItemList(OrderEntity orderEntity) {

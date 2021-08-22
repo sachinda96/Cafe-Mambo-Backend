@@ -39,4 +39,9 @@ public class OrderController {
     public ResponseEntity<?> canceledOrder(@PathVariable String id){
         return placeOrderService.canceledOrder(id);
     }
+
+    @GetMapping(value = "/allOrderByCustomer/{customerId}")
+    public ResponseEntity<?> allOrderByCustomer(@PathVariable String customerId){
+        return  placeOrderService.allOrderByCustomer(customerId);
+    }
 }

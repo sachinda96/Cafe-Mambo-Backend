@@ -10,6 +10,7 @@ public class PackageDto {
     private Double price;
     private String imagePath;
     private List<ItemDto> itemDtoList;
+    private List<String> itemIdList;
 
     public String getId() {
         return id;
@@ -57,5 +58,13 @@ public class PackageDto {
 
     public void setItemDtoList(List<ItemDto> itemDtoList) {
         this.itemDtoList = itemDtoList;
+    }
+
+    public List<String> getItemIdList() {
+        return itemIdList;
+    }
+
+    public void setItemIdList(List<String> itemIdList) {
+        this.itemIdList = itemIdList;
     }
 }
