@@ -39,4 +39,11 @@ public class EventBookingController {
     public ResponseEntity<?> getAllBooking(){
         return eventBookingService.getAllBooking();
     }
+
+    @GetMapping(value = "/getAllPending")
+    public ResponseEntity<?> getAllPendingBooking(){
+        return eventBookingService.getAllPendingBooking();
+    }
+
+
 }

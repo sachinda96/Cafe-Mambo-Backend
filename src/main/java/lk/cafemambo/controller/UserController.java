@@ -1,6 +1,7 @@
 package lk.cafemambo.controller;
 
 import lk.cafemambo.dto.RegistrationDto;
+import lk.cafemambo.dto.UserDto;
 import lk.cafemambo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,4 +21,29 @@ public class UserController {
         return  userService.registration(registrationDto);
     }
 
+
+    @PostMapping(value = "/save")
+    public ResponseEntity<?> save(@RequestBody UserDto userDto){
+        return userService.save(userDto);
+    }
+
+    @PostMapping(value = "/update")
+    public ResponseEntity<?> update(@RequestBody UserDto userDto){
+        return userService.update(userDto);
+    }
+
+    @GetMapping(value = "/remove/{id}")
+    public ResponseEntity<?> remove(@PathVariable String id){
+        return userService.remove(id);
+    }
+
+    @GetMapping(value = "/get/{id}")
+    public ResponseEntity<?> gets(String id){
+        return userService.gets(id);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAll(){
+        return userService.getAll();
+    }
 }

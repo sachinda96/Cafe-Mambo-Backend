@@ -1,10 +1,12 @@
 package lk.cafemambo.service.impl;
 
 import lk.cafemambo.dto.RegistrationDto;
+import lk.cafemambo.dto.UserDto;
 import lk.cafemambo.entity.LoginEntity;
 import lk.cafemambo.entity.UserEntity;
 import lk.cafemambo.repository.LoginRepository;
 import lk.cafemambo.repository.UserRepository;
+import lk.cafemambo.security.JwtTokenProvider;
 import lk.cafemambo.service.UserService;
 import lk.cafemambo.util.AppConstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,6 +31,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Override
     public ResponseEntity<?> registration(RegistrationDto registrationDto) {
@@ -64,6 +71,146 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<?> save(UserDto userDto) {
+
+        try {
+
+            LoginEntity loginEntity = new LoginEntity();
+            loginEntity.setId(UUID.randomUUID().toString());
+            loginEntity.setEmail(userDto.getEmail());
+            loginEntity.setLocked(false);
+            loginEntity.setCreateBy(jwtTokenProvider.getUserEmailByRequestToken());
+            loginEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            loginEntity.setStatus(AppConstance.ACTIVE);
+
+            loginRepository.save(loginEntity);
+
+            UserEntity userEntity = new UserEntity();
+            userEntity.setRole(userDto.getRole());
+            userEntity.setLoginEntity(loginEntity);
+            userEntity.setName(userDto.getName());
+            userEntity.setStatus(AppConstance.ACTIVE);
+            userEntity.setEmail(userDto.getEmail());
+            userEntity.setCreateDate(new Date());
+
+            userRepository.save(userEntity);
+
+            return new ResponseEntity<>("200",HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<?> update(UserDto userDto) {
+
+
+        try {
+
+            UserEntity userEntity = userRepository.getById(userDto.getId());
+
+            if(userEntity == null){
+                return new ResponseEntity<>("Invalid User",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+
+            userEntity.setName(userDto.getName());
+            userEntity.setRole(userDto.getRole());
+
+            userRepository.save(userEntity);
+
+            return new ResponseEntity<>("200",HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+
+
+    }
+
+    @Override
+    public ResponseEntity<?> remove(String id) {
+
+        try {
+
+            UserEntity userEntity = userRepository.getById(id);
+
+            if(userEntity == null){
+                return new ResponseEntity<>("Invalid User",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+
+            userEntity.setStatus(AppConstance.INACTIVE);
+
+            userRepository.save(userEntity);
+
+            return new ResponseEntity<>("200",HttpStatus.OK);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<?> gets(String id) {
+
+        try {
+
+            UserEntity userEntity = userRepository.getById(id);
+
+            if(userEntity == null){
+                return new ResponseEntity<>("Invalid User",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            UserDto userDto = new UserDto();
+            userDto.setEmail(userEntity.getEmail());
+            userDto.setId(userEntity.getId());
+            userDto.setRole(userEntity.getRole());
+
+            return new ResponseEntity<>(userDto,HttpStatus.OK);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<?> getAll() {
+        try {
+
+            List<UserEntity> userEntities = userRepository.findAllByStatus(AppConstance.ACTIVE);
+
+            List<UserDto> userDtoList = new ArrayList<>();
+
+            for (UserEntity userEntity : userEntities) {
+                UserDto userDto = new UserDto();
+                userDto.setEmail(userEntity.getEmail());
+                userDto.setId(userEntity.getId());
+                userDto.setRole(userEntity.getRole());
+                userDtoList.add(userDto);
+            }
+
+            return new ResponseEntity<>(userDtoList,HttpStatus.OK);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

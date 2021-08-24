@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface EventBookingRepository extends JpaRepository<EventBookingEntity,String> {
     List<EventBookingEntity> findAllByStatus(String active);
+
+    List<EventBookingEntity> findAllByStatusAndEventStatus(String active, String eventStatusPending);
 }

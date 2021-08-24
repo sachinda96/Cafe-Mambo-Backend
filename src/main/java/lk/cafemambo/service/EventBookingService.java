@@ -15,4 +15,6 @@ public interface EventBookingService {
 
     public ResponseEntity<?> getAllBooking();
 
+    public ResponseEntity<?> getAllPendingBooking();
+
 }

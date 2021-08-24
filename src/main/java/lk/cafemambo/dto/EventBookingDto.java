@@ -13,6 +13,7 @@ public class EventBookingDto {
     private String userId;
     private Date bookDate;
     private String packageId;
+    private String packageName;
 
     public String getId() {
         return id;
@@ -84,5 +85,13 @@ public class EventBookingDto {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 }

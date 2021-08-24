@@ -171,6 +171,30 @@ public class EventBookingServiceImpl implements EventBookingService {
         }
     }
 
+    @Override
+    public ResponseEntity<?> getAllPendingBooking() {
+
+        try {
+
+            List<EventBookingEntity> eventBookingEntityList = eventBookingRepository.findAllByStatusAndEventStatus(AppConstance.ACTIVE,AppConstance.EVENT_STATUS_PENDING);
+
+            List<EventBookingDto> eventBookingDtoList = new ArrayList<>();
+
+            for (EventBookingEntity eventBookingEntity : eventBookingEntityList) {
+                eventBookingDtoList.add(setEventBookingDto(eventBookingEntity));
+            }
+
+            return new ResponseEntity<>(eventBookingDtoList,HttpStatus.OK);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
     private EventBookingEntity setEventBookingEntity(EventBookingDto eventBookingDto){
 
         EventBookingEntity eventBookingEntity = new EventBookingEntity();
@@ -179,6 +203,10 @@ public class EventBookingServiceImpl implements EventBookingService {
         eventBookingEntity.setCreateDate(new Date());
         eventBookingEntity.setId(UUID.randomUUID().toString());
         eventBookingEntity.setStatus(AppConstance.ACTIVE);
+        eventBookingEntity.setEventStatus(AppConstance.EVENT_STATUS_PENDING);
+        eventBookingEntity.setLocation(eventBookingDto.getLocation());
+        eventBookingEntity.setMessage(eventBookingDto.getMessage());
+        eventBookingEntity.setContactNumber(eventBookingDto.getContactNumber());
 
         return eventBookingEntity;
     }

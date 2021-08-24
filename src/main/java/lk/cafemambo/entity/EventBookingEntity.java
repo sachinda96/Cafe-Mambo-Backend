@@ -26,6 +26,14 @@ public class EventBookingEntity {
 
     private Date updateDate;
 
+    private String eventStatus;
+
+    private String contactNumber;
+
+    private String message;
+
+    private String location;
+
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private PaymentEntity paymentEntity;
@@ -37,6 +45,7 @@ public class EventBookingEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
+
 
     public String getId() {
         return id;
@@ -116,5 +125,37 @@ public class EventBookingEntity {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(String eventStatus) {
+        this.eventStatus = eventStatus;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }
