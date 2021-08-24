@@ -23,4 +23,5 @@ public class AppConstance {
     public static final String KITCHEN_ORDER_LEVEL = "KITCHEN";
     public static final String CASHIER_ORDER_LEVEL = "CASHIER";
     public static final String COMPLETE_ORDER_LEVEL = "COMPLETED";
+    public static final String EVENT_STATUS_COMPLETE = "COMPLETED";
 }

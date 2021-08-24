@@ -17,4 +17,6 @@ public interface EventBookingService {
 
     public ResponseEntity<?> getAllPendingBooking();
 
+    public ResponseEntity<?> completeEvent(String id);
+
 }

@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/get/{id}")
-    public ResponseEntity<?> gets(String id){
+    public ResponseEntity<?> gets(@PathVariable String id){
         return userService.gets(id);
     }
 

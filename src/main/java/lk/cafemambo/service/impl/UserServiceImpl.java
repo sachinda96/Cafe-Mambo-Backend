@@ -87,15 +87,18 @@ public class UserServiceImpl implements UserService {
             loginEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
             loginEntity.setStatus(AppConstance.ACTIVE);
 
-            loginRepository.save(loginEntity);
+            loginEntity = loginRepository.save(loginEntity);
 
             UserEntity userEntity = new UserEntity();
+            userEntity.setId(UUID.randomUUID().toString());
             userEntity.setRole(userDto.getRole());
             userEntity.setLoginEntity(loginEntity);
             userEntity.setName(userDto.getName());
             userEntity.setStatus(AppConstance.ACTIVE);
             userEntity.setEmail(userDto.getEmail());
             userEntity.setCreateDate(new Date());
+            userEntity.setAddress(userDto.getAddress());
+            userEntity.setTelNo(userDto.getTelNo());
 
             userRepository.save(userEntity);
 
@@ -123,6 +126,8 @@ public class UserServiceImpl implements UserService {
 
             userEntity.setName(userDto.getName());
             userEntity.setRole(userDto.getRole());
+            userEntity.setAddress(userDto.getAddress());
+            userEntity.setTelNo(userDto.getTelNo());
 
             userRepository.save(userEntity);
 
@@ -175,9 +180,12 @@ public class UserServiceImpl implements UserService {
             }
 
             UserDto userDto = new UserDto();
+            userDto.setName(userEntity.getName());
             userDto.setEmail(userEntity.getEmail());
             userDto.setId(userEntity.getId());
             userDto.setRole(userEntity.getRole());
+            userDto.setAddress(userEntity.getAddress());
+            userDto.setTelNo(userEntity.getTelNo());
 
             return new ResponseEntity<>(userDto,HttpStatus.OK);
 
@@ -198,11 +206,17 @@ public class UserServiceImpl implements UserService {
             List<UserDto> userDtoList = new ArrayList<>();
 
             for (UserEntity userEntity : userEntities) {
-                UserDto userDto = new UserDto();
-                userDto.setEmail(userEntity.getEmail());
-                userDto.setId(userEntity.getId());
-                userDto.setRole(userEntity.getRole());
-                userDtoList.add(userDto);
+                if(!userEntity.getRole().equalsIgnoreCase(AppConstance.TABLE_ROLE)){
+                    UserDto userDto = new UserDto();
+                    userDto.setEmail(userEntity.getEmail());
+                    userDto.setId(userEntity.getId());
+                    userDto.setRole(userEntity.getRole());
+                    userDto.setAddress(userEntity.getAddress());
+                    userDto.setTelNo(userEntity.getTelNo());
+                    userDto.setName(userEntity.getName());
+                    userDtoList.add(userDto);
+                }
+
             }
 
             return new ResponseEntity<>(userDtoList,HttpStatus.OK);

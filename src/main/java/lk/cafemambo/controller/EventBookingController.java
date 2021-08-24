@@ -16,12 +16,12 @@ public class EventBookingController {
 
 
     @PostMapping(value = "/save")
-    public ResponseEntity<?> addBooking(EventBookingDto eventBookingDto){
+    public ResponseEntity<?> addBooking(@RequestBody EventBookingDto eventBookingDto){
         return eventBookingService.addBooking(eventBookingDto);
     }
 
     @PostMapping(value = "/update")
-    public ResponseEntity<?> updateBooking(EventBookingDto eventBookingDto){
+    public ResponseEntity<?> updateBooking(@RequestBody EventBookingDto eventBookingDto){
         return eventBookingService.updateBooking(eventBookingDto);
     }
 
@@ -45,5 +45,8 @@ public class EventBookingController {
         return eventBookingService.getAllPendingBooking();
     }
 
-
+    @GetMapping(value = "/complete/{id}")
+    public ResponseEntity<?> complete(@PathVariable String id){
+        return eventBookingService.completeEvent(id);
+    }
 }

@@ -53,7 +53,9 @@ public class EventBookingServiceImpl implements EventBookingService {
                 return new ResponseEntity<>("Invalid Package", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-            eventBookingRepository.save(setEventBookingEntity(eventBookingDto));
+            EventBookingEntity eventBookingEntity = eventBookingRepository.save(setEventBookingEntity(eventBookingDto));
+
+            eventBookingDetailsRepository.save(setEventBookingDetailsEntity(eventBookingEntity,packageEntity));
 
             return new ResponseEntity<>("200", HttpStatus.OK);
         }catch (Exception e){
@@ -195,6 +197,28 @@ public class EventBookingServiceImpl implements EventBookingService {
 
     }
 
+    @Override
+    public ResponseEntity<?> completeEvent(String id) {
+
+        try {
+
+            EventBookingEntity eventBookingEntity = eventBookingRepository.getById(id);
+
+            if(eventBookingEntity == null){
+                return new ResponseEntity<>("Invalid Event",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            eventBookingEntity.setEventStatus(AppConstance.EVENT_STATUS_COMPLETE);
+            eventBookingRepository.save(eventBookingEntity);
+
+            return new ResponseEntity<>("200",HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
     private EventBookingEntity setEventBookingEntity(EventBookingDto eventBookingDto){
 
         EventBookingEntity eventBookingEntity = new EventBookingEntity();
@@ -207,6 +231,8 @@ public class EventBookingServiceImpl implements EventBookingService {
         eventBookingEntity.setLocation(eventBookingDto.getLocation());
         eventBookingEntity.setMessage(eventBookingDto.getMessage());
         eventBookingEntity.setContactNumber(eventBookingDto.getContactNumber());
+        eventBookingEntity.setEmail(eventBookingDto.getEmail());
+        eventBookingEntity.setName(eventBookingEntity.getName());
 
         return eventBookingEntity;
     }
@@ -256,12 +282,15 @@ public class EventBookingServiceImpl implements EventBookingService {
         EventBookingDto eventBookingDto = new EventBookingDto();
         eventBookingDto.setBookDate(eventBookingEntity.getBookDate());
         eventBookingDto.setId(eventBookingEntity.getId());
-       //// eventBookingDto.setDelivery(setDeliveryDto(eventBookingEntity.getDeliveryDetailsEntity()));
-        //eventBookingDto.setUserId(eventBookingEntity.getUserEntity().getId());
-        //eventBookingDto.setPayment(setPaymentDto(eventBookingEntity.getPaymentEntity()));
+        eventBookingDto.setEmail(eventBookingEntity.getEmail());
+        eventBookingDto.setName(eventBookingEntity.getEmail());
+        eventBookingDto.setLocation(eventBookingEntity.getLocation());
+        eventBookingDto.setMessage(eventBookingEntity.getMessage());
+        eventBookingDto.setContactNumber(eventBookingEntity.getContactNumber());
         EventBookingDetailsEntity eventBookingDetailsEntity = eventBookingDetailsRepository.findByEventBookingEntityAndStatus(eventBookingEntity,AppConstance.ACTIVE);
         if(eventBookingDetailsEntity != null){
             eventBookingDto.setPackageId(eventBookingDetailsEntity.getPackageEntity().getId());
+            eventBookingDto.setPackageName(eventBookingDetailsEntity.getPackageEntity().getName());
         }
         return eventBookingDto;
     }

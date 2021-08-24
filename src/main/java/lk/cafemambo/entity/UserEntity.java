@@ -30,6 +30,10 @@ public class UserEntity {
 
     private Date updateDate;
 
+    private String telNo;
+
+    private String address;
+
 
     @ManyToOne
     @JoinColumn(name = "login_id")
@@ -114,5 +118,21 @@ public class UserEntity {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getTelNo() {
+        return telNo;
+    }
+
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

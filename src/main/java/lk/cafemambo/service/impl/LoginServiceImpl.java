@@ -35,7 +35,7 @@ public class LoginServiceImpl implements LoginService {
 
         try {
 
-            LoginEntity loginEntity = loginRepository.findByEmail(loginDto.getEmail());
+            LoginEntity loginEntity = loginRepository.findByEmailAndStatus(loginDto.getEmail(),AppConstance.ACTIVE);
 
             if(loginEntity != null){
                 UserEntity userEntity = userRepository.findByLoginEntityAndStatus(loginEntity, AppConstance.ACTIVE);
@@ -45,13 +45,15 @@ public class LoginServiceImpl implements LoginService {
                     TokenDto tokenDto = new TokenDto();
                     tokenDto.setToken(jwtTokenProvider.createToken(loginEntity.getEmail()));
                     tokenDto.setUserId(userEntity.getId());
+                    tokenDto.setRole(userEntity.getRole());
+                    tokenDto.setName(userEntity.getName());
 
                     return new ResponseEntity<>(tokenDto,HttpStatus.OK);
                 }
 
             }
 
-            return new ResponseEntity<>("Invalid credentials please check username or password",HttpStatus.OK);
+            return new ResponseEntity<>("Invalid credentials please check username or password",HttpStatus.INTERNAL_SERVER_ERROR);
 
         }catch (Exception e){
             e.printStackTrace();

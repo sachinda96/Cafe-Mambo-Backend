@@ -34,6 +34,10 @@ public class EventBookingEntity {
 
     private String location;
 
+    private String name;
+
+    private String email;
+
     @ManyToOne
     @JoinColumn(name = "payment_id")
     private PaymentEntity paymentEntity;
@@ -157,5 +161,21 @@ public class EventBookingEntity {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
