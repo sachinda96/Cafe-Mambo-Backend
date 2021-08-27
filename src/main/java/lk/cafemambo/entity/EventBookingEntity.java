@@ -38,7 +38,7 @@ public class EventBookingEntity {
 
     private String email;
 
-    private String userId;
+    private String userIds;
 
     @ManyToOne
     @JoinColumn(name = "payment_id")
@@ -182,10 +182,10 @@ public class EventBookingEntity {
     }
 
     public String getUserId() {
-        return userId;
+        return userIds;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.userIds = userId;
     }
 }
