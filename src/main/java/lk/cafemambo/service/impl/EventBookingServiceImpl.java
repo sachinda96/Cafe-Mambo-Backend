@@ -233,9 +233,17 @@ public class EventBookingServiceImpl implements EventBookingService {
                 eventBookingDto.setContactNumber(eventBookingEntity.getContactNumber());
                 eventBookingDto.setMessage(eventBookingEntity.getMessage());
                 eventBookingDto.setLocation(eventBookingEntity.getLocation());
-                eventBookingDto.setPackageName(eventBookingDto.getPackageName());
                 eventBookingDto.setName(eventBookingEntity.getName());
                 eventBookingDto.setEmail(eventBookingEntity.getEmail());
+
+                EventBookingDetailsEntity eventBookingDetailsEntity = eventBookingDetailsRepository.findByEventBookingEntityAndStatus(eventBookingEntity,AppConstance.ACTIVE);
+
+                if(eventBookingDetailsEntity != null){
+                    eventBookingDto.setPackageName(eventBookingDetailsEntity.getPackageEntity().getName());
+                }
+
+                eventBookingDto.setBookDate(eventBookingEntity.getBookDate());
+
                 eventBookingDtoList.add(eventBookingDto);
             }
 
@@ -260,7 +268,8 @@ public class EventBookingServiceImpl implements EventBookingService {
         eventBookingEntity.setMessage(eventBookingDto.getMessage());
         eventBookingEntity.setContactNumber(eventBookingDto.getContactNumber());
         eventBookingEntity.setEmail(eventBookingDto.getEmail());
-        eventBookingEntity.setName(eventBookingEntity.getName());
+        eventBookingEntity.setName(eventBookingDto.getName());
+        eventBookingEntity.setUserId(eventBookingDto.getUserId());
 
         return eventBookingEntity;
     }

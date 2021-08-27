@@ -125,7 +125,11 @@ public class UserServiceImpl implements UserService {
 
 
             userEntity.setName(userDto.getName());
-            userEntity.setRole(userDto.getRole());
+
+            if(!userEntity.getRole().equalsIgnoreCase(AppConstance.USER_ROLE)){
+                userEntity.setRole(userDto.getRole());
+            }
+
             userEntity.setAddress(userDto.getAddress());
             userEntity.setTelNo(userDto.getTelNo());
 
