@@ -14,7 +14,7 @@ public class ItemDto {
     private List<String> ingredients;
     private Integer rateCount;
     private Integer qty;
-    private boolean select;
+    private boolean select = false;
 
     public String getId() {
         return id;

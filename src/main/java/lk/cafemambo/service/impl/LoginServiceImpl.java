@@ -35,6 +35,10 @@ public class LoginServiceImpl implements LoginService {
 
         try {
 
+            if(loginDto.getEmail() == ""){
+                return new ResponseEntity<>("Invalid credentials please check username or password",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
             LoginEntity loginEntity = loginRepository.findByEmailAndStatus(loginDto.getEmail(),AppConstance.ACTIVE);
 
             if(loginEntity != null){
