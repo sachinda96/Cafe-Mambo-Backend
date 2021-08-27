@@ -197,22 +197,26 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
         try {
 
-            UserEntity userEntity =userRepository.getById(customerId);
+            //UserEntity userEntity =userRepository.getById(customerId);
 
-            List<OrderEntity> orderEntities = orderRepository.findAllByUserEntityAndStatus(userEntity,AppConstance.ACTIVE);
+
+            List<OrderEntity> orderEntities = orderRepository.findAllByStatus(AppConstance.ACTIVE);
 
             List<OrderDto> orderDtoList = new ArrayList<>();
 
             for (OrderEntity orderEntity : orderEntities) {
-                OrderDto orderDto = new OrderDto();
-                orderDto.setId(orderEntity.getId());
-                orderDto.setCustomerDto(setCustomerDto(orderEntity.getUserEntity()));
-                orderDto.setOrderDate(orderEntity.getOrderDate());
-                orderDto.setDeliveryDto(setDeliveryDto(orderEntity.getDeliveryDetailsEntity()));
-                orderDto.setPaymentDto(setPaymentDto(orderEntity.getPaymentEntity()));
-                orderDto.setItemDtoList(setItemList(orderEntity));
-                orderDto.setOrderStatus(orderEntity.getOrderStatus());
-                orderDtoList.add(orderDto);
+                if(orderEntity.getUserEntity().getId().equalsIgnoreCase(customerId)){
+                    OrderDto orderDto = new OrderDto();
+                    orderDto.setId(orderEntity.getId());
+                    orderDto.setCustomerDto(setCustomerDto(orderEntity.getUserEntity()));
+                    orderDto.setOrderDate(orderEntity.getOrderDate());
+                    orderDto.setDeliveryDto(setDeliveryDto(orderEntity.getDeliveryDetailsEntity()));
+                    orderDto.setPaymentDto(setPaymentDto(orderEntity.getPaymentEntity()));
+                    orderDto.setItemDtoList(setItemList(orderEntity));
+                    orderDto.setOrderStatus(orderEntity.getOrderStatus());
+                    orderDtoList.add(orderDto);
+                }
+
             }
 
             return new ResponseEntity<>(orderEntities,HttpStatus.OK);

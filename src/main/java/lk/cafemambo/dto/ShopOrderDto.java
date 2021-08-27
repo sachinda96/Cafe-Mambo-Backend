@@ -1,7 +1,4 @@
-package lk.cafemambo.controller;
-
-import lk.cafemambo.dto.ItemDto;
-import lk.cafemambo.dto.PaymentDto;
+package lk.cafemambo.dto;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ public class ShopOrderDto {
     private String contactNumber;
     private List<ItemDto> itemDtoList;
     private PaymentDto paymentDto;
+    private Double price;
 
     public String getId() {
         return id;
@@ -60,5 +58,13 @@ public class ShopOrderDto {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

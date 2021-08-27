@@ -1,5 +1,6 @@
 package lk.cafemambo.controller;
 
+import lk.cafemambo.dto.ShopOrderDto;
 import lk.cafemambo.dto.ShopTableDto;
 import lk.cafemambo.service.ShopOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class ShopOrderController {
         return shopOrderService.saveShopTable(shopTableDto);
     }
 
+    @PostMapping("/placeorder")
+    public ResponseEntity<?> placeShopOrder(@RequestBody ShopOrderDto shopOrderDto){
+        return shopOrderService.placeShopOrder(shopOrderDto);
+    }
     @GetMapping("/getAllTables")
     public ResponseEntity<?> getAllShopTable(){
         return shopOrderService.getAllShopTable();
@@ -31,7 +36,7 @@ public class ShopOrderController {
 
     @GetMapping("/getAllUserRole/{id}")
     public ResponseEntity<?> getAllUserRole(@PathVariable String id){
-        return shopOrderService.updateLevel(id);
+        return shopOrderService.getAllByUser(id);
     }
 
     @GetMapping("/getAllByUser/{id}")

@@ -1,6 +1,6 @@
 package lk.cafemambo.service;
 
-import lk.cafemambo.controller.ShopOrderDto;
+import lk.cafemambo.dto.ShopOrderDto;
 import lk.cafemambo.dto.ShopTableDto;
 import org.springframework.http.ResponseEntity;
 

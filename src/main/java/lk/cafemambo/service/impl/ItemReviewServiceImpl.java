@@ -42,16 +42,15 @@ public class ItemReviewServiceImpl implements ItemReviewService {
 
         try {
 
-
             UserEntity userEntity = userRepository.getById(reviewDto.getUserId());
 
-            if(userEntity != null){
+            if(userEntity == null){
                 return new ResponseEntity<>("Invalid User Details", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
             ItemEntity itemEntity = itemRepository.getById(reviewDto.getItemId());
 
-            if(itemEntity != null){
+            if(itemEntity == null){
                 return new ResponseEntity<>("Invalid Item Details", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
@@ -59,6 +58,7 @@ public class ItemReviewServiceImpl implements ItemReviewService {
             reviewEntity.setReview(reviewDto.getReview());
             reviewEntity.setItemEntity(itemEntity);
             reviewEntity.setUserEntity(userEntity);
+            reviewEntity.setRate(reviewDto.getRate());
             reviewEntity.setId(UUID.randomUUID().toString());
             reviewEntity.setLevel(reviewDto.getLevel());
             reviewEntity.setCreateBy(jwtTokenProvider.getUserEmailByRequestToken());
@@ -84,7 +84,7 @@ public class ItemReviewServiceImpl implements ItemReviewService {
 
             ItemEntity itemEntity = itemRepository.getById(itemId);
 
-            if(itemEntity != null){
+            if(itemEntity == null){
                 return new ResponseEntity<>("Invalid Item Details", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 

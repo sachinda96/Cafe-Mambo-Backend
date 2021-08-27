@@ -1,6 +1,6 @@
 package lk.cafemambo.service.impl;
 
-import lk.cafemambo.controller.ShopOrderDto;
+import lk.cafemambo.dto.ShopOrderDto;
 import lk.cafemambo.dto.ItemDto;
 import lk.cafemambo.dto.PaymentDto;
 import lk.cafemambo.dto.ShopTableDto;
@@ -104,6 +104,7 @@ public class ShopOrderServiceImpl implements ShopOrderService {
             PaymentEntity paymentEntity = paymentRepository.save(setPaymentEntity(shopOrderDto.getPaymentDto()));
 
             ShopOrderEntity shopOrderEntity = new ShopOrderEntity();
+            shopOrderEntity.setId(UUID.randomUUID().toString());
             shopOrderEntity.setShopTableEntity(shopTableEntity);
             shopOrderEntity.setUserEntity(userEntity);
             shopOrderEntity.setPaymentEntity(paymentEntity);
@@ -111,7 +112,9 @@ public class ShopOrderServiceImpl implements ShopOrderService {
             shopOrderEntity.setLevel(AppConstance.KITCHEN_ORDER_LEVEL);
             shopOrderEntity.setCustomerName(shopOrderDto.getCustomerName());
             shopOrderEntity.setContactNumber(shopOrderDto.getContactNumber());
+            shopOrderEntity.setStatus(AppConstance.ACTIVE);
 
+            shopOrderEntity = shopOrderRepository.save(shopOrderEntity);
             Double total = 0.0;
             for (ItemDto itemDto : shopOrderDto.getItemDtoList()) {
 
@@ -127,6 +130,7 @@ public class ShopOrderServiceImpl implements ShopOrderService {
                     shopOrderDetailsEntity.setId(UUID.randomUUID().toString());
                     shopOrderDetailsEntity.setPrice(itemDto.getPrice());
                     shopOrderDetailsEntity.setQty(itemDto.getQty());
+                    shopOrderDetailsEntity.setStatus(AppConstance.ACTIVE);
 
                     total = new BigDecimal(total).add(new BigDecimal(itemDto.getPrice()).multiply(new BigDecimal(itemDto.getQty()))).setScale(2).doubleValue();
 
@@ -216,7 +220,7 @@ public class ShopOrderServiceImpl implements ShopOrderService {
 
         try {
 
-            UserEntity userEntity = userRepository.findByNameAndRole(id,AppConstance.TABLE_ROLE);
+            UserEntity userEntity = userRepository.getById(id);
 
             if(userEntity == null){
                 return new ResponseEntity<>("Invalid User Details",HttpStatus.INTERNAL_SERVER_ERROR);
@@ -230,7 +234,9 @@ public class ShopOrderServiceImpl implements ShopOrderService {
                 level = AppConstance.CASHIER_ORDER_LEVEL;
             }
 
+
             List<ShopOrderEntity> shopOrderEntities = shopOrderRepository.findAllByLevelAndStatus(level,AppConstance.ACTIVE);
+
 
             List<ShopOrderDto> shopOrderDtoList = new ArrayList<>();
             for (ShopOrderEntity shopOrderEntity : shopOrderEntities) {
@@ -260,6 +266,7 @@ public class ShopOrderServiceImpl implements ShopOrderService {
                 shopOrderDto.setId(shopOrderEntity.getId());
                 shopOrderDto.setContactNumber(shopOrderEntity.getContactNumber());
                 shopOrderDto.setCustomerName(shopOrderEntity.getCustomerName());
+                shopOrderDto.setPrice(shopOrderEntity.getTotal());
 
                 List<ShopOrderDetailsEntity> shopOrderDetailsEntities = shopOrderDetailsRepository.findAllByStatusAndShopOrderEntity(AppConstance.ACTIVE,shopOrderEntity);
 
@@ -303,9 +310,11 @@ public class ShopOrderServiceImpl implements ShopOrderService {
 
     private ShopOrderDto SetShopOrderDto(ShopOrderEntity shopOrderEntity) {
         ShopOrderDto shopOrderDto = new ShopOrderDto();
-        shopOrderDto.setId(UUID.randomUUID().toString());
+        shopOrderDto.setId(shopOrderEntity.getId());
         shopOrderDto.setCustomerName(shopOrderEntity.getCustomerName());
         shopOrderDto.setContactNumber(shopOrderEntity.getContactNumber());
+        shopOrderDto.setPrice(shopOrderEntity.getTotal());
+        shopOrderDto.setTableId(shopOrderEntity.getShopTableEntity().getTableNumber());
         return shopOrderDto;
     }
 
