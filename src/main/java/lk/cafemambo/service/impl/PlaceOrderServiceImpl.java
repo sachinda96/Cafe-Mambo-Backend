@@ -197,9 +197,6 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
         try {
 
-            //UserEntity userEntity =userRepository.getById(customerId);
-
-
             List<OrderEntity> orderEntities = orderRepository.findAllByStatus(AppConstance.ACTIVE);
 
             List<OrderDto> orderDtoList = new ArrayList<>();

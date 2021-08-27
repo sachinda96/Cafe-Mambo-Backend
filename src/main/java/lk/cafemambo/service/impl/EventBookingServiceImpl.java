@@ -219,6 +219,34 @@ public class EventBookingServiceImpl implements EventBookingService {
 
     }
 
+    @Override
+    public ResponseEntity<?> getAllEventBookingsByCustomer(String id) {
+
+        try {
+
+            List<EventBookingEntity> eventBookingEntityList =  eventBookingRepository.findAllByUserIdsAndStatus(id,AppConstance.ACTIVE);
+
+            List<EventBookingDto> eventBookingDtoList = new ArrayList<>();
+
+            for (EventBookingEntity eventBookingEntity : eventBookingEntityList) {
+                EventBookingDto eventBookingDto = new EventBookingDto();
+                eventBookingDto.setContactNumber(eventBookingEntity.getContactNumber());
+                eventBookingDto.setMessage(eventBookingEntity.getMessage());
+                eventBookingDto.setLocation(eventBookingEntity.getLocation());
+                eventBookingDto.setPackageName(eventBookingDto.getPackageName());
+                eventBookingDto.setName(eventBookingEntity.getName());
+                eventBookingDto.setEmail(eventBookingEntity.getEmail());
+                eventBookingDtoList.add(eventBookingDto);
+            }
+
+            return new ResponseEntity<>(eventBookingDtoList,HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
     private EventBookingEntity setEventBookingEntity(EventBookingDto eventBookingDto){
 
         EventBookingEntity eventBookingEntity = new EventBookingEntity();

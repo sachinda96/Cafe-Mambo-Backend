@@ -49,4 +49,9 @@ public class EventBookingController {
     public ResponseEntity<?> complete(@PathVariable String id){
         return eventBookingService.completeEvent(id);
     }
+
+    @GetMapping(value = "/getAllEventBookingsByCustomer/{id}")
+    public ResponseEntity<?> getAllEventBookingsByCustomer(@PathVariable String id){
+        return eventBookingService.getAllEventBookingsByCustomer(id);
+    }
 }

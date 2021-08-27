@@ -21,7 +21,6 @@ public class UserController {
         return  userService.registration(registrationDto);
     }
 
-
     @PostMapping(value = "/save")
     public ResponseEntity<?> save(@RequestBody UserDto userDto){
         return userService.save(userDto);

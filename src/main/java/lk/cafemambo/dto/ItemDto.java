@@ -14,6 +14,7 @@ public class ItemDto {
     private List<String> ingredients;
     private Integer rateCount;
     private Integer qty;
+    private boolean select;
 
     public String getId() {
         return id;
@@ -93,5 +94,13 @@ public class ItemDto {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 }

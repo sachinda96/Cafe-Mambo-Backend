@@ -19,4 +19,6 @@ public interface EventBookingService {
 
     public ResponseEntity<?> completeEvent(String id);
 
+    public ResponseEntity<?> getAllEventBookingsByCustomer(String id);
+
 }

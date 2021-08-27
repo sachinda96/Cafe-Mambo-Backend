@@ -9,4 +9,6 @@ public interface EventBookingRepository extends JpaRepository<EventBookingEntity
     List<EventBookingEntity> findAllByStatus(String active);
 
     List<EventBookingEntity> findAllByStatusAndEventStatus(String active, String eventStatusPending);
+
+    List<EventBookingEntity> findAllByUserIdsAndStatus(String id, String active);
 }

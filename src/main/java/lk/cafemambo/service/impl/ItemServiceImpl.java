@@ -4,10 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.cafemambo.dto.ItemDto;
 import lk.cafemambo.entity.CategoryEntity;
 import lk.cafemambo.entity.ItemEntity;
+import lk.cafemambo.entity.ReviewEntity;
 import lk.cafemambo.repository.CategoryRepository;
 import lk.cafemambo.repository.ItemRepository;
+import lk.cafemambo.repository.ReviewRepository;
 import lk.cafemambo.security.JwtTokenProvider;
 import lk.cafemambo.service.FileService;
+import lk.cafemambo.service.ItemReviewService;
 import lk.cafemambo.service.ItemService;
 import lk.cafemambo.util.AppConstance;
 import org.hibernate.cfg.Environment;
@@ -43,6 +46,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
 
     @Override
@@ -285,12 +291,26 @@ public class ItemServiceImpl implements ItemService {
         itemDto.setId(itemEntity.getId());
         itemDto.setName(itemEntity.getName());
         itemDto.setPrice(itemEntity.getPrice());
-        itemDto.setRateCount(generateRate());
+        itemDto.setRateCount(generateRate(itemEntity));
         return itemDto;
     }
 
-    private Integer generateRate() {
-        return 0;
+    private Integer generateRate(ItemEntity itemEntity) {
+
+        List<ReviewEntity> reviewEntities = reviewRepository.findAllByItemEntityAndStatus(itemEntity,AppConstance.ACTIVE);
+
+        Integer count = 0;
+
+        if(reviewEntities != null){
+            for (ReviewEntity reviewEntity : reviewEntities) {
+                if(reviewEntity.getRate()> count){
+                    count = reviewEntity.getRate();
+                }
+            }
+        }
+
+
+        return count;
     }
 
     private String generateImagePath(String id,String fileName) throws UnknownHostException {
