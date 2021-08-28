@@ -52,8 +52,7 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
                 return new ResponseEntity<>("Invalid User", HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
-
-            DeliveryDetailsEntity deliveryDetailsEntity = deliveryDetailsRepository.save(setDeliveryDetailsEntity(placeOrderDto.getDeliveryDto()));
+            DeliveryDetailsEntity deliveryDetailsEntity = deliveryDetailsRepository.save(setDeliveryDetailsEntity(placeOrderDto.getDeliveryDto(),userEntity));
             PaymentEntity paymentEntity = paymentRepository.save(setPaymentEntity(placeOrderDto.getPaymentDto()));
 
             OrderEntity orderEntity = new OrderEntity();
@@ -290,12 +289,12 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return paymentEntity;
     }
 
-    private DeliveryDetailsEntity setDeliveryDetailsEntity(DeliveryDto deliveryDto){
+    private DeliveryDetailsEntity setDeliveryDetailsEntity(DeliveryDto deliveryDto,UserEntity userEntity){
        DeliveryDetailsEntity deliveryDetailsEntity = new DeliveryDetailsEntity();
        deliveryDetailsEntity.setStatus(AppConstance.ACTIVE);
        deliveryDetailsEntity.setDeliveryDate(new Date());
        deliveryDetailsEntity.setId(UUID.randomUUID().toString());
-       deliveryDetailsEntity.setMobileNo(deliveryDto.getMobileNo());
+       deliveryDetailsEntity.setMobileNo(userEntity.getTelNo());
        deliveryDetailsEntity.setDistrict(deliveryDto.getDistrict());
        deliveryDetailsEntity.setCity(deliveryDto.getCity());
        deliveryDetailsEntity.setAddress(deliveryDto.getAddress());
