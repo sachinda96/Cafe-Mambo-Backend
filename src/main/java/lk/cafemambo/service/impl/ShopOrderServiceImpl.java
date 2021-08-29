@@ -49,7 +49,6 @@ public class ShopOrderServiceImpl implements ShopOrderService {
 
         try {
 
-
             if(shopTableRepository.findByTableNumber(shopTableDto.getTableNumber()) != null){
                 return new ResponseEntity<>("Already Add This Table Number", HttpStatus.INTERNAL_SERVER_ERROR);
             }

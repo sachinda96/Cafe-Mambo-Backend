@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<UserEntity,String> {
     UserEntity findByNameAndRole(String tableId, String tableRole);
 
     List<UserEntity> findAllByStatus(String active);
+
+    UserEntity getByIdAndStatus(String customerId, String active);
 }

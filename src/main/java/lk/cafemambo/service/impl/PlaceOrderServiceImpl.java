@@ -196,7 +196,13 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
         try {
 
-            List<OrderEntity> orderEntities = orderRepository.findAllByStatus(AppConstance.ACTIVE);
+            UserEntity userEntity = userRepository.getByIdAndStatus(customerId,AppConstance.ACTIVE);
+
+            if(userEntity == null){
+                return new ResponseEntity<>("Invalid User Entity",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            List<OrderEntity> orderEntities = orderRepository.findAllByUserEntityAndStatus(userEntity,AppConstance.ACTIVE);
 
             List<OrderDto> orderDtoList = new ArrayList<>();
 
