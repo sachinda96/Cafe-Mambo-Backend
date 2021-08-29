@@ -1,7 +1,5 @@
 package lk.cafemambo.entity;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.Date;
 
