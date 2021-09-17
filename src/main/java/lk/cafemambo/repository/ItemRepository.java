@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ItemRepository extends JpaRepository<ItemEntity,String> {
+
     List<ItemEntity> findAllByStatus(String active)throws Exception;
 
     ItemEntity findByIdAndStatus(String id, String active)throws Exception;

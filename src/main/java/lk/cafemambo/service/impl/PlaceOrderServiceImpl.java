@@ -41,6 +41,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     *
+     * @param placeOrderDto
+     * @return
+     */
     @Override
     public ResponseEntity<?> placeOrder(PlaceOrderDto placeOrderDto) {
 
@@ -100,6 +105,10 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ResponseEntity<?> getPendingOrders() {
 
@@ -128,6 +137,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public ResponseEntity<?> getOrderDetails(String id) {
 
@@ -152,6 +166,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public ResponseEntity<?> dispatchOrder(String id) {
 
@@ -171,6 +190,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public ResponseEntity<?> canceledOrder(String id) {
 
@@ -190,6 +214,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         }
     }
 
+    /**
+     *
+     * @param customerId
+     * @return
+     */
     @Override
     public ResponseEntity<?> allOrderByCustomer(String customerId) {
 
@@ -229,6 +258,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
     }
 
 
+    /**
+     *
+     * @param orderEntity
+     * @return
+     */
     private List<ItemDto> setItemList(OrderEntity orderEntity) {
 
         List<OrderDetailsEntity> orderDetailsEntities = orderDetailsRepository.findAllByStatusAndOrderEntity(AppConstance.ACTIVE,orderEntity);
@@ -242,6 +276,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return itemDtoList;
     }
 
+    /**
+     *
+     * @param orderDetailsEntity
+     * @return
+     */
     private ItemDto setItemDto(OrderDetailsEntity orderDetailsEntity){
         ItemDto itemDto = new ItemDto();
         itemDto.setImagePath(orderDetailsEntity.getItemEntity().getPath());
@@ -255,6 +294,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return itemDto;
     }
 
+    /**
+     *
+     * @param paymentEntity
+     * @return
+     */
     private PaymentDto setPaymentDto(PaymentEntity paymentEntity) {
         PaymentDto paymentDto = new PaymentDto();
         paymentDto.setPaymentStatus(paymentEntity.getPaymentStatus());
@@ -264,6 +308,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return paymentDto;
     }
 
+    /**
+     *
+     * @param deliveryDetailsEntity
+     * @return
+     */
     private DeliveryDto setDeliveryDto(DeliveryDetailsEntity deliveryDetailsEntity) {
         DeliveryDto deliveryDto = new DeliveryDto();
         deliveryDto.setDeliveryNote(deliveryDetailsEntity.getDeliveryNote());
@@ -275,6 +324,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return deliveryDto;
     }
 
+    /**
+     *
+     * @param userEntity
+     * @return
+     */
     private CustomerDto setCustomerDto(UserEntity userEntity) {
         CustomerDto customerDto = new CustomerDto();
         customerDto.setEmail(userEntity.getEmail());
@@ -283,6 +337,11 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return customerDto;
     }
 
+    /**
+     *
+     * @param paymentDto
+     * @return
+     */
     private PaymentEntity setPaymentEntity(PaymentDto paymentDto){
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setCreateBy(jwtTokenProvider.getUserEmailByRequestToken());
@@ -295,6 +354,12 @@ public class PlaceOrderServiceImpl implements PlaceOrderService {
         return paymentEntity;
     }
 
+    /**
+     *
+     * @param deliveryDto
+     * @param userEntity
+     * @return
+     */
     private DeliveryDetailsEntity setDeliveryDetailsEntity(DeliveryDto deliveryDto,UserEntity userEntity){
        DeliveryDetailsEntity deliveryDetailsEntity = new DeliveryDetailsEntity();
        deliveryDetailsEntity.setStatus(AppConstance.ACTIVE);

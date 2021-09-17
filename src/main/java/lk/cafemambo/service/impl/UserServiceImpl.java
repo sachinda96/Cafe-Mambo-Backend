@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    /**
+     *
+     * @param registrationDto
+     * @return
+     */
     @Override
     public ResponseEntity<?> registration(RegistrationDto registrationDto) {
 
@@ -74,6 +79,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     *
+     * @param userDto
+     * @return
+     */
     @Override
     public ResponseEntity<?> save(UserDto userDto) {
 
@@ -111,6 +121,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     *
+     * @param userDto
+     * @return
+     */
     @Override
     public ResponseEntity<?> update(UserDto userDto) {
 
@@ -147,6 +162,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public ResponseEntity<?> remove(String id) {
 
@@ -172,6 +192,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Override
     public ResponseEntity<?> gets(String id) {
 
